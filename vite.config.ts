@@ -9,7 +9,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["icon.svg"],
+      includeAssets: ["icon.svg", "Atelier-logo.png"],
       manifest: {
         name: "L'Atelier Majorité",
         short_name: "Atelier Majorité",
@@ -22,10 +22,16 @@ export default defineConfig({
         start_url: "/",
         icons: [
           {
+            src: "/Atelier-logo.png",
+            sizes: "1254x1254",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
             src: "/icon.svg",
             sizes: "any",
             type: "image/svg+xml",
-            purpose: "any maskable",
+            purpose: "maskable",
           },
         ],
       },

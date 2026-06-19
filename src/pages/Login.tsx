@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../lib/auth";
 import { Button, Field, Input } from "../components/ui";
-import { Monogram } from "../components/Logo";
 
 export default function Login() {
   const { login } = useAuth();
@@ -24,17 +23,13 @@ export default function Login() {
     <div className="flex min-h-full items-center justify-center bg-marine-800 px-4 py-10">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 w-fit">
-            <Monogram size={68} />
-          </div>
-          <h1 className="text-2xl font-extrabold text-white">
-            L'Atelier <span className="text-atelier-400">Majorité</span>
-          </h1>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-atelier-300">
-            Échanger · Coopérer · Agir
-          </p>
-          <p className="mt-3 text-sm text-marine-200">
-            Espace réservé aux élus — Ferrières Passionnément
+          <img
+            src="/Atelier-logo.png"
+            alt="L'Atelier Majorité"
+            className="mx-auto mb-4 w-40 rounded-3xl shadow-2xl"
+          />
+          <p className="text-sm text-marine-200">
+            Espace réservé aux élus de la majorité
           </p>
         </div>
 
