@@ -78,7 +78,7 @@ export interface Elu {
   nom: string;
   fonction: string;
   delegation?: string;
-  email: string;
+  email?: string;
   telephone?: string;
   couleur: string; // accent visuel pour l'avatar
   permanence?: Permanence;

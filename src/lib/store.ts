@@ -13,7 +13,7 @@ interface DB {
   elus: Elu[];
 }
 
-const KEY = "fp-db-v1";
+const KEY = "fp-db-v2";
 
 function seed(): DB {
   return {
