@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  /* Bleu marine — couleur principale (le "A" du logo) */
+  --color-marine-50: #eef3f8;
+  --color-marine-100: #d5e1ee;
+  --color-marine-200: #adc3da;
+  --color-marine-300: #7b9cbd;
+  --color-marine-400: #4a73a0;
+  --color-marine-500: #2c5481;
+  --color-marine-600: #1d4068;
+  --color-marine-700: #16324f;
+  --color-marine-800: #112740;
+  --color-marine-900: #0c1d30;
+
+  /* Vert / teal — couleur secondaire (le "M" du logo) */
+  --color-atelier-50: #eaf7f1;
+  --color-atelier-100: #cdeddf;
+  --color-atelier-200: #9fdcc1;
+  --color-atelier-300: #66c39e;
+  --color-atelier-400: #38a87d;
+  --color-atelier-500: #229268;
+  --color-atelier-600: #197a57;
+  --color-atelier-700: #156347;
+
+  /* Jaune doré — accent (le "AGIR" du logo) */
+  --color-or-50: #fdf6e7;
+  --color-or-100: #fae8bf;
+  --color-or-200: #f5d287;
+  --color-or-300: #f0bd4f;
+  --color-or-400: #eaa92b;
+  --color-or-500: #d8951a;
+  --color-or-600: #b5780f;
+
+  /* Rouge — réservé aux alertes / urgences (priorité haute, nouveau) */
+  --color-passion-50: #fef2f2;
+  --color-passion-100: #fde3e1;
+  --color-passion-200: #fbcac6;
+  --color-passion-300: #f7a39c;
+  --color-passion-400: #f06f64;
+  --color-passion-500: #e2453a;
+  --color-passion-600: #cf2c22;
+  --color-passion-700: #ad221a;
+
+  --color-sand-50: #f7f9fb;
+  --color-sand-100: #eef2f6;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-sand-50);
+  color: var(--color-marine-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Masque la scrollbar horizontale des nav scrollables sur mobile */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
