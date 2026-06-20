@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  updateProfile,
   type User,
 } from "firebase/auth";
 import { auth as fbAuth, firebaseEnabled } from "./firebase";
@@ -37,6 +38,7 @@ interface AuthCtx {
   // identity = e-mail (firebase) ou nom (démo) ; secret = mot de passe ou code.
   login: (identity: string, secret: string) => Promise<string | null>;
   logout: () => Promise<void>;
+  updateDisplayName: (name: string) => Promise<void>;
 }
 
 const Ctx = createContext<AuthCtx | null>(null);
@@ -111,6 +113,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return null;
   };
 
+  const updateDisplayName: AuthCtx["updateDisplayName"] = async (name) => {
+    if (mode === "firebase" && fbAuth?.currentUser) {
+      await updateProfile(fbAuth.currentUser, { displayName: name });
+      setSession(sessionFromUser(fbAuth.currentUser));
+    } else {
+      const s = { ...(session ?? { name: "" }), name };
+      localStorage.setItem(SESSION_KEY, JSON.stringify(s));
+      setSession(s);
+    }
+  };
+
   const logout: AuthCtx["logout"] = async () => {
     if (mode === "firebase" && fbAuth) {
       await signOut(fbAuth);
@@ -121,7 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <Ctx.Provider value={{ session, ready, mode, login, logout }}>
+    <Ctx.Provider value={{ session, ready, mode, login, logout, updateDisplayName }}>
       {children}
     </Ctx.Provider>
   );
