@@ -15,7 +15,7 @@ export default function Indicateurs() {
     {
       label: "Élus de la majorité",
       value: String(ELUS.length),
-      delta: "dont 9 maires-adjoints",
+      delta: "dont 8 adjoints au maire",
       tone: "#1E8E5A",
     },
     {
