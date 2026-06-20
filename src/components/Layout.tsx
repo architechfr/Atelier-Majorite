@@ -53,7 +53,7 @@ const GROUPS: { title: string; items: NavItem[] }[] = [
     title: "ÉCHANGER",
     items: [
       { to: "/fil", label: "Fil de la majorité", icon: Rss },
-      { to: "/messages", label: "Messagerie", icon: MessageSquare, badge: 3 },
+      { to: "/messages", label: "Messagerie", icon: MessageSquare, badge: 0 },
       { to: "/idees", label: "Boîte à idées", icon: Lightbulb },
     ],
   },
@@ -88,7 +88,7 @@ export const PAGE_TITLES: Record<string, string> = {
 const MOBILE_TABS: NavItem[] = [
   { to: "/", label: "Cockpit", icon: LayoutGrid, end: true },
   { to: "/fil", label: "Fil", icon: Rss },
-  { to: "/messages", label: "Messages", icon: MessageSquare, badge: 3 },
+  { to: "/messages", label: "Messages", icon: MessageSquare, badge: 0 },
   { to: "/agenda", label: "Agenda", icon: CalendarDays },
 ];
 
