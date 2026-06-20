@@ -3,7 +3,7 @@ import { Users, Calendar, FileText } from "lucide-react";
 import { Card, Avatar } from "../components/ui";
 import { useAuth } from "../lib/auth";
 import { ELUS } from "../lib/seed";
-import { CONSEILS } from "../lib/conseils";
+import { CONSEILS, PROCHAIN_CONSEIL } from "../lib/conseils";
 
 export default function Accueil() {
   const navigate = useNavigate();
@@ -109,27 +109,34 @@ export default function Accueil() {
       {/* Dernier conseil + équipe */}
       <div className="grid gap-[18px] lg:grid-cols-[1fr_360px]">
         <Card className="p-[22px]">
-          <div className="text-[11px] font-bold tracking-[0.12em] text-ink-soft">
-            DERNIER CONSEIL
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold tracking-[0.12em] text-ink-soft">
+              PROCHAIN CONSEIL
+            </span>
+            {PROCHAIN_CONSEIL.provisoire && (
+              <span className="rounded-full border border-warn/40 bg-warn/10 px-2.5 py-0.5 text-[10.5px] font-bold text-warn">
+                Date provisoire
+              </span>
+            )}
           </div>
           <div className="font-display mt-3 text-[21px] font-bold leading-tight text-ink">
-            {dernierConseil.dateLabel}
+            {PROCHAIN_CONSEIL.dateLabel}
           </div>
           <p className="mt-1 text-[13px] text-ink-muted">
-            {dernierConseil.lieu.split("—")[0].trim()}
+            {PROCHAIN_CONSEIL.lieu.split("—")[0].trim()}
           </p>
           <p className="mt-2.5 text-[12.5px] text-ink-soft">
-            {dernierConseil.delibs.length} délibérations
-            {dernierConseil.diffuse ? " · Séance filmée" : ""}
-            {" · "}
-            {dernierConseil.pvStatut}
+            {PROCHAIN_CONSEIL.heure}
           </p>
-          <button
-            onClick={() => navigate("/documents")}
-            className="mt-4 inline-flex rounded-[10px] border border-line bg-panel-2 px-4 py-2 text-[13px] font-semibold text-ink transition hover:border-marine-200"
-          >
-            Voir les délibérations →
-          </button>
+          <div className="mt-4 border-t border-line-soft pt-3.5 text-[12px] text-ink-soft">
+            Dernier conseil :{" "}
+            <button
+              onClick={() => navigate("/documents")}
+              className="font-semibold text-accent"
+            >
+              {dernierConseil.dateLabel} · {dernierConseil.delibs.length} délibérations →
+            </button>
+          </div>
         </Card>
 
         <Card className="p-[22px]">

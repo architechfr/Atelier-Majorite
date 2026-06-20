@@ -42,6 +42,15 @@ export const RUBRIQUE_COLOR: Record<string, string> = {
 
 const LIEU = "Mairie annexe — Salle Rothschild (24, rue Jean Jaurès)";
 
+// Prochain conseil (date provisoire — à confirmer).
+export const PROCHAIN_CONSEIL = {
+  date: "2026-10-02",
+  dateLabel: "Vendredi 2 octobre 2026",
+  heure: "20 h 30",
+  lieu: LIEU,
+  provisoire: true,
+};
+
 // Triés du plus récent au plus ancien.
 export const CONSEILS: Conseil[] = [
   {
