@@ -15,7 +15,13 @@ import Annuaire from "./pages/Annuaire";
 import Reglages from "./pages/Reglages";
 
 function Protected({ children }: { children: React.ReactNode }) {
-  const { session } = useAuth();
+  const { session, ready } = useAuth();
+  if (!ready)
+    return (
+      <div className="flex h-screen items-center justify-center bg-app text-sm text-ink-soft">
+        Chargement…
+      </div>
+    );
   if (!session) return <Navigate to="/login" replace />;
   return <>{children}</>;
 }

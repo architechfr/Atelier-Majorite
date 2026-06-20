@@ -6,4 +6,8 @@ dist-ssr
 .vercel
 dev-dist
 
-.vercel
+# Variables d'environnement (config Firebase, etc.) — ne pas versionner
+.env
+.env.local
+.env.*.local
+!.env.example

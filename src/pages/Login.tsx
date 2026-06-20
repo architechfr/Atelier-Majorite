@@ -1,22 +1,26 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../lib/auth";
 import { Button, Field, Input } from "../components/ui";
 
 export default function Login() {
-  const { login } = useAuth();
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [code, setCode] = useState("");
+  const { session, login, mode } = useAuth();
+  const [identity, setIdentity] = useState("");
+  const [secret, setSecret] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
+  // Déjà connecté → on bascule dans l'app (gère aussi le retour de Firebase Auth).
+  if (session) return <Navigate to="/" replace />;
+
+  const isFirebase = mode === "firebase";
+
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (login(code, name)) {
-      navigate("/");
-    } else {
-      setError("Code d'accès incorrect.");
-    }
+    setSubmitting(true);
+    const err = await login(identity, secret);
+    setSubmitting(false);
+    if (err) setError(err);
   };
 
   return (
@@ -57,36 +61,79 @@ export default function Login() {
           onSubmit={submit}
           className="space-y-4 rounded-3xl bg-white p-6 shadow-2xl"
         >
-          <Field label="Votre nom">
-            <Input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Prénom Nom"
-              autoComplete="name"
-            />
-          </Field>
-          <Field label="Code d'accès">
-            <Input
-              type="password"
-              value={code}
-              onChange={(e) => {
-                setCode(e.target.value);
-                setError("");
-              }}
-              placeholder="••••••••"
-            />
-          </Field>
+          {isFirebase ? (
+            <>
+              <Field label="Adresse e-mail">
+                <Input
+                  type="email"
+                  value={identity}
+                  onChange={(e) => {
+                    setIdentity(e.target.value);
+                    setError("");
+                  }}
+                  placeholder="prenom.nom@ferrieres.fr"
+                  autoComplete="email"
+                  required
+                />
+              </Field>
+              <Field label="Mot de passe">
+                <Input
+                  type="password"
+                  value={secret}
+                  onChange={(e) => {
+                    setSecret(e.target.value);
+                    setError("");
+                  }}
+                  placeholder="••••••••"
+                  autoComplete="current-password"
+                  required
+                />
+              </Field>
+            </>
+          ) : (
+            <>
+              <Field label="Votre nom">
+                <Input
+                  value={identity}
+                  onChange={(e) => setIdentity(e.target.value)}
+                  placeholder="Prénom Nom"
+                  autoComplete="name"
+                />
+              </Field>
+              <Field label="Code d'accès">
+                <Input
+                  type="password"
+                  value={secret}
+                  onChange={(e) => {
+                    setSecret(e.target.value);
+                    setError("");
+                  }}
+                  placeholder="••••••••"
+                />
+              </Field>
+            </>
+          )}
+
           {error && (
             <p className="rounded-lg bg-passion-50 px-3 py-2 text-sm font-medium text-passion-700">
               {error}
             </p>
           )}
-          <Button type="submit" variant="accent" className="w-full">
-            Entrer dans l'Atelier
+
+          <Button
+            type="submit"
+            variant="accent"
+            className="w-full"
+            disabled={submitting}
+          >
+            {submitting ? "Connexion…" : "Entrer dans l'Atelier"}
           </Button>
-          <p className="text-center text-xs text-slate-400">
-            Démo — code&nbsp;: <span className="font-mono">ferrieres2026</span>
-          </p>
+
+          {!isFirebase && (
+            <p className="text-center text-xs text-slate-400">
+              Démo — code&nbsp;: <span className="font-mono">ferrieres2026</span>
+            </p>
+          )}
         </form>
       </div>
     </div>
