@@ -1,46 +1,84 @@
+import { useNavigate } from "react-router-dom";
 import { Card } from "../components/ui";
-import { AGENDA } from "../lib/cockpit";
+import { CONSEILS } from "../lib/conseils";
+
+const MOIS: Record<string, string> = {
+  "01": "JANV",
+  "02": "FÉV",
+  "03": "MARS",
+  "04": "AVR",
+  "05": "MAI",
+  "06": "JUIN",
+  "07": "JUIL",
+  "08": "AOÛT",
+  "09": "SEPT",
+  "10": "OCT",
+  "11": "NOV",
+  "12": "DÉC",
+};
 
 export default function Agenda() {
+  const navigate = useNavigate();
+
   return (
     <div className="flex max-w-[760px] flex-col gap-3.5">
-      {AGENDA.map((a) => (
-        <Card
-          key={`${a.d}-${a.t}`}
-          className="flex items-center gap-4 px-5 py-4"
-          style={a.hot ? { boxShadow: `inset 3px 0 0 ${a.sc}` } : undefined}
+      <p className="text-[13px] text-ink-muted">
+        Séances du conseil municipal 2026 ·{" "}
+        <button
+          onClick={() => navigate("/documents")}
+          className="font-semibold text-accent"
         >
-          <div className="w-[62px] shrink-0 text-center">
-            <div
-              className="font-display text-[26px] font-bold leading-none"
-              style={{ color: a.sc }}
+          Voir les délibérations →
+        </button>
+      </p>
+
+      {CONSEILS.map((c) => {
+        const [, mm, dd] = c.date.split("-");
+        return (
+          <Card
+            key={c.id}
+            className="flex items-center gap-4 px-5 py-4"
+          >
+            <div className="w-[62px] shrink-0 text-center">
+              <div className="font-display text-[26px] font-bold leading-none text-ink">
+                {dd}
+              </div>
+              <div className="mt-1 text-[11px] font-bold tracking-wider text-ink-soft">
+                {MOIS[mm]}
+              </div>
+            </div>
+            <div className="w-px self-stretch bg-line-soft" />
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="font-display text-base font-semibold text-ink">
+                  Conseil municipal
+                </span>
+                <span className="rounded-full bg-royal-50 px-2.5 py-0.5 text-[11px] font-bold text-royal-500">
+                  Conseil
+                </span>
+                {c.diffuse && (
+                  <span className="rounded-full bg-[#E9F6F0] px-2.5 py-0.5 text-[11px] font-bold text-[#1E8E5A]">
+                    Filmée
+                  </span>
+                )}
+              </div>
+              <div className="mt-1 text-[13px] text-ink-muted">
+                {c.heure} · {c.lieu.split("—")[0].trim()}
+              </div>
+              <div className="mt-0.5 text-[12px] text-ink-soft">
+                {c.delibs.length} délibération
+                {c.delibs.length > 1 ? "s" : ""}
+              </div>
+            </div>
+            <button
+              onClick={() => navigate("/documents")}
+              className="shrink-0 rounded-[10px] border border-line bg-panel-2 px-3.5 py-2 text-[13px] font-semibold text-ink transition hover:border-marine-200"
             >
-              {a.d}
-            </div>
-            <div className="mt-1 text-[11px] font-bold tracking-wider text-ink-soft">
-              {a.m}
-            </div>
-          </div>
-          <div className="w-px self-stretch bg-line-soft" />
-          <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="font-display text-base font-semibold text-ink">
-                {a.t}
-              </span>
-              <span
-                className="rounded-full bg-panel-2 px-2.5 py-0.5 text-[11px] font-bold"
-                style={{ color: a.sc }}
-              >
-                {a.k}
-              </span>
-            </div>
-            <div className="mt-1 text-[13px] text-ink-muted">{a.s}</div>
-          </div>
-          <button className="shrink-0 rounded-[10px] border border-line bg-panel-2 px-3.5 py-2 text-[13px] font-semibold text-ink transition hover:border-marine-200">
-            Participer
-          </button>
-        </Card>
-      ))}
+              Voir →
+            </button>
+          </Card>
+        );
+      })}
     </div>
   );
 }

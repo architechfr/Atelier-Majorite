@@ -8,7 +8,6 @@ import {
   MATRIX,
   MATRIX_HEAD,
   FINANCEMENTS,
-  FINANCEMENTS_STATS,
   type EchelonId,
 } from "../lib/cockpit";
 
@@ -186,21 +185,10 @@ function Ecosysteme({
           ))}
         </div>
 
-        <div className="mt-[18px] flex items-center justify-between border-t border-line-soft pt-4">
-          <div className="min-w-0">
-            <div className="text-[11px] text-ink-soft">Interlocuteur clé</div>
-            <div className="mt-0.5 text-[13px] font-semibold text-ink">
-              {ld.contact}
-            </div>
-          </div>
-          <div className="shrink-0 text-right">
-            <div
-              className="font-display text-[22px] font-bold leading-none"
-              style={{ color: ld.accent }}
-            >
-              {ld.dossiers}
-            </div>
-            <div className="mt-0.5 text-[11px] text-ink-soft">dossiers liés</div>
+        <div className="mt-[18px] border-t border-line-soft pt-4">
+          <div className="text-[11px] text-ink-soft">Interlocuteur clé</div>
+          <div className="mt-0.5 text-[13px] font-semibold text-ink">
+            {ld.contact}
           </div>
         </div>
       </Card>
@@ -299,20 +287,6 @@ function QuiFaitQuoi() {
 function Financements() {
   return (
     <div>
-      <div className="mb-4 grid max-w-[620px] grid-cols-1 gap-3.5 sm:grid-cols-3">
-        {FINANCEMENTS_STATS.map((s) => (
-          <Card key={s.label} className="px-4 py-4">
-            <div
-              className="font-display text-[23px] font-bold"
-              style={{ color: s.color }}
-            >
-              {s.value}
-            </div>
-            <div className="mt-0.5 text-[12px] text-ink-muted">{s.label}</div>
-          </Card>
-        ))}
-      </div>
-
       <div className="flex max-w-[820px] flex-col gap-3.5">
         {FINANCEMENTS.map((f) => (
           <Card key={f.name} className="p-5">
