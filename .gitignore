@@ -5,3 +5,5 @@ dist-ssr
 .DS_Store
 .vercel
 dev-dist
+
+.vercel

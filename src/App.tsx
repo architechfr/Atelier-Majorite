@@ -2,11 +2,17 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuth } from "./lib/auth";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Actualites from "./pages/Actualites";
+import Accueil from "./pages/Accueil";
+import Projets from "./pages/Projets";
+import Indicateurs from "./pages/Indicateurs";
+import Territoire from "./pages/Territoire";
+import Fil from "./pages/Fil";
+import Messages from "./pages/Messages";
+import Idees from "./pages/Idees";
 import Agenda from "./pages/Agenda";
-import Signalements from "./pages/Signalements";
-import Elus from "./pages/Elus";
+import Documents from "./pages/Documents";
+import Annuaire from "./pages/Annuaire";
+import Reglages from "./pages/Reglages";
 
 function Protected({ children }: { children: React.ReactNode }) {
   const { session } = useAuth();
@@ -25,11 +31,17 @@ export default function App() {
           </Protected>
         }
       >
-        <Route index element={<Dashboard />} />
-        <Route path="actualites" element={<Actualites />} />
+        <Route index element={<Accueil />} />
+        <Route path="projets" element={<Projets />} />
+        <Route path="indicateurs" element={<Indicateurs />} />
+        <Route path="territoire" element={<Territoire />} />
+        <Route path="fil" element={<Fil />} />
+        <Route path="messages" element={<Messages />} />
+        <Route path="idees" element={<Idees />} />
         <Route path="agenda" element={<Agenda />} />
-        <Route path="signalements" element={<Signalements />} />
-        <Route path="elus" element={<Elus />} />
+        <Route path="documents" element={<Documents />} />
+        <Route path="annuaire" element={<Annuaire />} />
+        <Route path="reglages" element={<Reglages />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

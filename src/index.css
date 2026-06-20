@@ -1,7 +1,116 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   Ambiances — variables sémantiques pilotées au runtime (Réglages > Ambiance)
+   Clair = institutionnel · Nocturne = futuriste
+   ========================================================================== */
+:root {
+  --c-app: #f4f7fc;
+  --c-canvas: #dce2ec;
+  --c-panel: #ffffff;
+  --c-panel-2: #f1f4f9;
+  --c-line: #e6ecf4;
+  --c-line-soft: #eef1f7;
+  --c-ink: #14304c;
+  --c-ink-muted: #5b6b82;
+  --c-ink-soft: #8493a8;
+
+  --c-accent: #2f6bff;
+  --c-accent-ink: #ffffff;
+  --c-accent-soft: #eef3ff;
+
+  --c-btn: #16324f;
+  --c-btn-ink: #ffffff;
+
+  --c-sidebar: linear-gradient(185deg, #16324f 0%, #102740 100%);
+  --c-sidebar-ink: #a9b8d0;
+  --c-sidebar-section: #5c739a;
+  --c-sidebar-border: rgba(255, 255, 255, 0.08);
+
+  --c-topbar: rgba(255, 255, 255, 0.85);
+  --c-hero: linear-gradient(120deg, #16324f 0%, #234974 60%, #2f6bff 130%);
+
+  --shadow-card: 0 1px 2px rgba(20, 48, 76, 0.04);
+  --shadow-pop: 0 18px 36px -28px rgba(20, 48, 76, 0.4);
+
+  --scale: 1;
+}
+
+[data-theme="nocturne"] {
+  --c-app: #0a1422;
+  --c-canvas: #060d18;
+  --c-panel: #0e1b2c;
+  --c-panel-2: #16243a;
+  --c-line: #1c2c42;
+  --c-line-soft: #16243a;
+  --c-ink: #eaf1fa;
+  --c-ink-muted: #7e92ae;
+  --c-ink-soft: #56708f;
+
+  --c-accent: #38e1d0;
+  --c-accent-ink: #06121f;
+  --c-accent-soft: rgba(56, 225, 208, 0.14);
+
+  --c-btn: linear-gradient(100deg, #38e1d0, #4d8bff);
+  --c-btn-ink: #06121f;
+
+  --c-sidebar: #070f1c;
+  --c-sidebar-ink: #8da0bb;
+  --c-sidebar-section: #3f5572;
+  --c-sidebar-border: #16243a;
+
+  --c-topbar: rgba(10, 20, 34, 0.7);
+  --c-hero: linear-gradient(120deg, #0e2236, #14365a);
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.25);
+  --shadow-pop: 0 18px 40px -26px rgba(0, 0, 0, 0.7);
+}
+
+/* Contraste renforcé — accessibilité */
+[data-contrast="high"] {
+  --c-ink: #06182b;
+  --c-ink-muted: #36485f;
+  --c-ink-soft: #56697f;
+  --c-line: #c7d2e2;
+}
+[data-theme="nocturne"][data-contrast="high"] {
+  --c-ink: #ffffff;
+  --c-ink-muted: #aebfd6;
+  --c-ink-soft: #8294ae;
+  --c-line: #2a3e58;
+}
+
 @theme {
-  /* Bleu marine — couleur principale (le "A" du logo) */
+  /* Tokens d'ambiance exposés en utilitaires Tailwind (bg-panel, text-ink…) */
+  --color-app: var(--c-app);
+  --color-canvas: var(--c-canvas);
+  --color-panel: var(--c-panel);
+  --color-panel-2: var(--c-panel-2);
+  --color-line: var(--c-line);
+  --color-line-soft: var(--c-line-soft);
+  --color-ink: var(--c-ink);
+  --color-ink-muted: var(--c-ink-muted);
+  --color-ink-soft: var(--c-ink-soft);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-accent-soft: var(--c-accent-soft);
+
+  /* Bleu royal — accent principal de la maquette */
+  --color-royal-50: #eef3ff;
+  --color-royal-100: #dce7ff;
+  --color-royal-300: #7fb0ff;
+  --color-royal-400: #5fa8ff;
+  --color-royal-500: #2f6bff;
+  --color-royal-600: #2357d6;
+  --color-royal-700: #1d4ab8;
+
+  /* Statuts (indépendants de l'ambiance) */
+  --color-success: #1e8e5a;
+  --color-warn: #be8e3c;
+  --color-danger: #c0392b;
+  --color-violet: #7a5bd6;
+
+  /* Bleu marine — héritage charte */
   --color-marine-50: #eef3f8;
   --color-marine-100: #d5e1ee;
   --color-marine-200: #adc3da;
@@ -13,40 +122,19 @@
   --color-marine-800: #112740;
   --color-marine-900: #0c1d30;
 
-  /* Vert / teal — couleur secondaire (le "M" du logo) */
-  --color-atelier-50: #eaf7f1;
-  --color-atelier-100: #cdeddf;
-  --color-atelier-200: #9fdcc1;
-  --color-atelier-300: #66c39e;
-  --color-atelier-400: #38a87d;
-  --color-atelier-500: #229268;
-  --color-atelier-600: #197a57;
-  --color-atelier-700: #156347;
-
-  /* Jaune doré — accent (le "AGIR" du logo) */
-  --color-or-50: #fdf6e7;
-  --color-or-100: #fae8bf;
-  --color-or-200: #f5d287;
-  --color-or-300: #f0bd4f;
-  --color-or-400: #eaa92b;
-  --color-or-500: #d8951a;
-  --color-or-600: #b5780f;
-
-  /* Rouge — réservé aux alertes / urgences (priorité haute, nouveau) */
   --color-passion-50: #fef2f2;
   --color-passion-100: #fde3e1;
-  --color-passion-200: #fbcac6;
-  --color-passion-300: #f7a39c;
-  --color-passion-400: #f06f64;
   --color-passion-500: #e2453a;
   --color-passion-600: #cf2c22;
   --color-passion-700: #ad221a;
 
-  --color-sand-50: #f7f9fb;
-  --color-sand-100: #eef2f6;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Public Sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+}
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-    Roboto, sans-serif;
+html {
+  font-size: calc(100% * var(--scale));
 }
 
 html,
@@ -57,8 +145,8 @@ body,
 
 body {
   margin: 0;
-  background: var(--color-sand-50);
-  color: var(--color-marine-900);
+  background: var(--c-app);
+  color: var(--c-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
@@ -67,7 +155,31 @@ body {
   box-sizing: border-box;
 }
 
-/* Masque la scrollbar horizontale des nav scrollables sur mobile */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* Réduction des animations — accessibilité */
+[data-reduce-motion="true"] *,
+[data-reduce-motion="true"] *::before,
+[data-reduce-motion="true"] *::after {
+  transition-duration: 0.001ms !important;
+  animation-duration: 0.001ms !important;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--c-ink) 18%, transparent);
+  border-radius: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

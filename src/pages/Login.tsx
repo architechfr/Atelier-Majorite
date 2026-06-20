@@ -20,16 +20,36 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-full items-center justify-center bg-marine-800 px-4 py-10">
+    <div
+      className="flex min-h-full items-center justify-center px-4 py-10"
+      style={{
+        background:
+          "radial-gradient(1200px 600px at 80% -10%, #234974 0%, transparent 60%), #102740",
+      }}
+    >
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <img
-            src="/Atelier-logo.png"
-            alt="L'Atelier Majorité"
-            className="mx-auto mb-4 w-40 rounded-3xl shadow-2xl"
-          />
-          <p className="text-sm text-marine-200">
-            Espace réservé aux élus de la majorité
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <span
+              className="font-display grid h-12 w-12 place-items-center rounded-[14px] text-lg font-bold text-white"
+              style={{
+                background: "linear-gradient(140deg,#2F6BFF,#5FA8FF)",
+                boxShadow: "0 8px 20px -8px rgba(47,107,255,.6)",
+              }}
+            >
+              AM
+            </span>
+            <div className="text-left">
+              <div className="font-display text-xl font-bold leading-none text-white">
+                L'Atelier Majorité
+              </div>
+              <div className="mt-1 text-[10px] tracking-[0.16em] text-royal-300">
+                FERRIÈRES-EN-BRIE
+              </div>
+            </div>
+          </div>
+          <p className="text-sm text-royal-100/70">
+            Cockpit réservé aux élus de la majorité
           </p>
         </div>
 
@@ -61,8 +81,8 @@ export default function Login() {
               {error}
             </p>
           )}
-          <Button type="submit" className="w-full">
-            Se connecter
+          <Button type="submit" variant="accent" className="w-full">
+            Entrer dans l'Atelier
           </Button>
           <p className="text-center text-xs text-slate-400">
             Démo — code&nbsp;: <span className="font-mono">ferrieres2026</span>
