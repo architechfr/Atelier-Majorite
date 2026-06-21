@@ -1,12 +1,19 @@
 import { Lightbulb } from "lucide-react";
-import { EmptyState } from "../components/ui";
 
 export default function Idees() {
   return (
-    <EmptyState
-      icon={<Lightbulb size={32} />}
-      title="Aucune idée soumise"
-      hint="La boîte à idées de la majorité sera disponible prochainement."
-    />
+    <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-line px-6 py-14 text-center">
+      <div className="mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-panel-2 text-ink-soft">
+        <Lightbulb size={26} />
+      </div>
+      <span className="mb-3 rounded-full border border-accent/30 bg-accent/10 px-3 py-0.5 text-[11px] font-bold tracking-wide text-accent">
+        BIENTÔT DISPONIBLE
+      </span>
+      <p className="font-semibold text-ink">Boîte à idées</p>
+      <p className="mt-1.5 max-w-[340px] text-sm text-ink-muted">
+        Soumettez vos propositions pour la commune et votez pour celles
+        des autres élus. Ouverture prévue prochainement.
+      </p>
+    </div>
   );
 }

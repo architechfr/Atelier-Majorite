@@ -183,7 +183,6 @@ export default function Layout() {
               aria-label="Notifications"
             >
               <Bell size={18} />
-              <span className="absolute right-2.5 top-2 h-2 w-2 rounded-full bg-passion-500 ring-2 ring-[var(--c-panel)]" />
             </button>
           </div>
         </header>

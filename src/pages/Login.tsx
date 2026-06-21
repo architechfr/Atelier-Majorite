@@ -71,7 +71,7 @@ export default function Login() {
                     setIdentity(e.target.value);
                     setError("");
                   }}
-                  placeholder="prenom.nom@ferrieres.fr"
+                  placeholder="votre@adressemail.fr"
                   autoComplete="email"
                   required
                 />

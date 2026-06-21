@@ -1,12 +1,19 @@
 import { MessageSquare } from "lucide-react";
-import { EmptyState } from "../components/ui";
 
 export default function Messages() {
   return (
-    <EmptyState
-      icon={<MessageSquare size={32} />}
-      title="Messagerie en cours de déploiement"
-      hint="La messagerie interne entre élus sera disponible prochainement."
-    />
+    <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-line px-6 py-14 text-center">
+      <div className="mb-4 grid h-14 w-14 place-items-center rounded-2xl bg-panel-2 text-ink-soft">
+        <MessageSquare size={26} />
+      </div>
+      <span className="mb-3 rounded-full border border-accent/30 bg-accent/10 px-3 py-0.5 text-[11px] font-bold tracking-wide text-accent">
+        BIENTÔT DISPONIBLE
+      </span>
+      <p className="font-semibold text-ink">Messagerie entre élus</p>
+      <p className="mt-1.5 max-w-[340px] text-sm text-ink-muted">
+        Échangez en privé avec vos collègues élus. En attendant,
+        retrouvez leurs coordonnées dans l'Annuaire.
+      </p>
+    </div>
   );
 }
