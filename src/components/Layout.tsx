@@ -1,4 +1,4 @@
-import { useState, type ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import {
   NavLink,
   Outlet,
@@ -25,6 +25,8 @@ import {
 } from "lucide-react";
 import { useAuth } from "../lib/auth";
 import { ELUS } from "../lib/seed";
+import { PublishModal } from "./PublishModal";
+import { SearchModal } from "./SearchModal";
 
 type IconType = ComponentType<{ size?: number; className?: string }>;
 
@@ -120,9 +122,30 @@ export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [drawer, setDrawer] = useState(false);
+  const [publishOpen, setPublishOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const name = session?.name ?? "Élu·e";
   const title = PAGE_TITLES[location.pathname] ?? "L'Atelier Majorité";
+
+  // Raccourci clavier Ctrl+K / Cmd+K pour la recherche
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, []);
+
+  // Événement global pour ouvrir la modale depuis n'importe quelle page
+  useEffect(() => {
+    const handler = () => setPublishOpen(true);
+    document.addEventListener("open-publish", handler);
+    return () => document.removeEventListener("open-publish", handler);
+  }, []);
 
   return (
     <div className="flex h-screen overflow-hidden bg-app text-ink">
@@ -160,18 +183,26 @@ export default function Layout() {
             <p className="mt-0.5 text-[11.5px] text-ink-soft">{todayLabel()}</p>
           </div>
 
+          {/* Barre de recherche — fonctionnelle */}
           <div className="hidden flex-1 justify-center md:flex">
-            <div className="flex w-[340px] max-w-full items-center gap-2.5 rounded-xl border border-line bg-panel-2 px-3.5 py-2.5 text-[13px] text-ink-soft">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="flex w-[340px] max-w-full items-center gap-2.5 rounded-xl border border-line bg-panel-2 px-3.5 py-2.5 text-[13px] text-ink-soft transition hover:border-royal-300 hover:bg-panel"
+            >
               <Search size={16} />
-              <span className="truncate">
-                Rechercher un élu, un projet, une délibération…
+              <span className="flex-1 truncate text-left">
+                Rechercher un élu, une délibération…
               </span>
-            </div>
+              <kbd className="hidden rounded border border-line px-1 py-0.5 font-mono text-[10px] xl:block">
+                Ctrl K
+              </kbd>
+            </button>
           </div>
 
           <div className="ml-auto flex items-center gap-2.5 md:ml-0">
+            {/* Bouton Publier — ouvre la modale de publication */}
             <button
-              onClick={() => navigate("/fil")}
+              onClick={() => setPublishOpen(true)}
               className="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2.5 text-[13.5px] font-semibold text-[var(--c-btn-ink)] shadow-[0_8px_18px_-8px_rgba(22,50,79,.55)]"
               style={{ background: "var(--c-btn)" }}
             >
@@ -179,8 +210,16 @@ export default function Layout() {
               <span className="hidden sm:inline">Publier</span>
             </button>
             <button
-              className="relative grid h-[42px] w-[42px] place-items-center rounded-xl border border-line bg-panel-2 text-ink-muted"
-              aria-label="Notifications"
+              onClick={() => setSearchOpen(true)}
+              className="grid h-[42px] w-[42px] place-items-center rounded-xl border border-line bg-panel-2 text-ink-muted transition hover:text-ink md:hidden"
+              aria-label="Rechercher"
+            >
+              <Search size={18} />
+            </button>
+            <button
+              onClick={() => navigate("/messages")}
+              className="grid h-[42px] w-[42px] place-items-center rounded-xl border border-line bg-panel-2 text-ink-muted transition hover:text-ink"
+              aria-label="Messagerie"
             >
               <Bell size={18} />
             </button>
@@ -250,6 +289,10 @@ export default function Layout() {
           </NavLink>
         ))}
       </nav>
+
+      {/* ===== Modaux globaux ===== */}
+      <PublishModal open={publishOpen} onClose={() => setPublishOpen(false)} />
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </div>
   );
 }
