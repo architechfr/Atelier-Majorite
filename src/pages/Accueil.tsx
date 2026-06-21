@@ -11,6 +11,11 @@ export default function Accueil() {
 
   const rawName = session?.name ?? "";
   const prenom = rawName.includes("@") ? "" : rawName.split(" ")[0];
+  const monElu = rawName.includes("@")
+    ? null
+    : ELUS.find(
+        (e) => `${e.prenom} ${e.nom}`.toLowerCase() === rawName.trim().toLowerCase(),
+      );
 
   const nbDelibs = CONSEILS.reduce((sum, c) => sum + c.delibs.length, 0);
   const dernierConseil = CONSEILS[0];
@@ -39,7 +44,9 @@ export default function Accueil() {
             Ferrières-en-Brie
           </h2>
           <p className="mt-2 text-[14px] text-royal-100/75">
-            Cockpit des élus de la majorité · Mandature 2026
+            {monElu?.delegation
+              ? monElu.delegation
+              : "Cockpit des élus de la majorité · Mandature 2026"}
           </p>
           <div className="mt-5 flex flex-wrap gap-2.5">
             <button

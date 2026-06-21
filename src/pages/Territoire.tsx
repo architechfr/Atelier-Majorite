@@ -77,6 +77,12 @@ function Ecosysteme({
       role="button"
       tabIndex={0}
       onClick={() => setLevel("commune")}
+      onKeyDown={(ev) => {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          setLevel("commune");
+        }
+      }}
       className="w-full cursor-pointer rounded-[13px] border-[1.5px] p-4 text-center text-white transition"
       style={{
         background: "linear-gradient(120deg,#16324F,#2F6BFF)",
@@ -104,6 +110,13 @@ function Ecosysteme({
         onClick={(ev) => {
           ev.stopPropagation();
           setLevel(e.id);
+        }}
+        onKeyDown={(ev) => {
+          if (ev.key === "Enter" || ev.key === " ") {
+            ev.preventDefault();
+            ev.stopPropagation();
+            setLevel(e.id);
+          }
         }}
         className="w-full cursor-pointer rounded-[15px] border-[1.5px] px-3.5 pb-4 pt-3.5 text-left transition"
         style={{ background: tints[idx], ...ringStyle(e.id) }}
